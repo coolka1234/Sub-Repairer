@@ -24,7 +24,15 @@ def predict_encoding(file_path: Path, n_lines: int=20) -> str:
 
     return chardet.detect(rawdata)['encoding']
 
-
+def change_polish_letters(file_path):
+    '''Change polish letters to english letters'''
+    # encoding = predict_encoding(file_path)
+    # print(f'Encoding: {encoding}')
+    with open(file_path, 'r', encoding='cp1250') as file:
+        content = file.read()
+    content = content.replace('ą', 'a').replace('ć', 'c').replace('ę', 'e').replace('ł', 'l').replace('ń', 'n').replace('ó', 'o').replace('ś', 's').replace('ż', 'z').replace('ź', 'z')
+    with open(file_path, 'w') as file:
+        file.write(content)
 if __name__=='__main__':
     if len(sys.argv) < 2:
         print('Please provide the file path as an argument')
@@ -33,7 +41,7 @@ if __name__=='__main__':
     if not os.path.exists(file_path):
         print('File not found')
         sys.exit(1)
-    convert_non_english_characters(file_path)
+    change_polish_letters(file_path)
     print('File converted successfully')
 
 

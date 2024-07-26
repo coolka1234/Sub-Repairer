@@ -8,6 +8,7 @@ from pathlib import Path
 def convert_non_english_characters(file_path):
     '''Convert non-english characters to english characters'''
     encoding = predict_encoding(file_path)
+    print(f'Encoding: {encoding}')
     with open(file_path, 'r', encoding=encoding) as file:
         content = file.read()
     converted_content = unidecode.unidecode(content)
